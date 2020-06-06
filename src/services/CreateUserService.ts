@@ -8,19 +8,33 @@ import User from '../models/Users';
 interface Request {
   name: string;
   email: string;
+  telephone: string;
   password: string;
 }
 
 class CreateUserService {
-  public async execute({ name, email, password }: Request): Promise<User> {
+  public async execute({
+    name,
+    email,
+    telephone,
+    password,
+  }: Request): Promise<User> {
     const usersRepository = getRepository(User);
 
-    const checkUserExists = await usersRepository.findOne({
+    const checkUserExistsByEmail = await usersRepository.findOne({
       where: { email },
     });
 
-    if (checkUserExists) {
+    if (checkUserExistsByEmail) {
       throw new AppError('Email address already used.');
+    }
+
+    const checkUserExistsByTelephone = await usersRepository.findOne({
+      where: { telephone },
+    });
+
+    if (checkUserExistsByTelephone) {
+      throw new AppError('Telephone number already used.');
     }
 
     const hashedPassword = await hash(password, 8);
@@ -28,6 +42,7 @@ class CreateUserService {
     const user = usersRepository.create({
       name,
       email,
+      telephone,
       password: hashedPassword,
     });
 
