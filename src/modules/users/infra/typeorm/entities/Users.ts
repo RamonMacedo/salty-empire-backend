@@ -7,7 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import Products from './Products';
+import Addresses from '@modules/addresses/infra/typeorm/entities/Addresses';
 
 @Entity('users')
 class Users {
@@ -17,14 +17,20 @@ class Users {
   @Column()
   name: string;
 
-  @OneToMany(() => Products, products => products.category_id)
-  products: Products;
+  @Column()
+  email: string;
 
   @Column()
-  icon_svg: string;
+  telephone: string;
 
   @Column()
-  is_active: boolean;
+  password: string;
+
+  @Column()
+  avatar: string;
+
+  @OneToMany(() => Addresses, addresses => addresses.user)
+  addresses: Addresses;
 
   @CreateDateColumn()
   created_at: Date;
