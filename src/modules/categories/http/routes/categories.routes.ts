@@ -2,7 +2,7 @@ import { Router } from 'express';
 // import multer from 'multer';
 
 // import uploadConfig from '@config/upload';
-
+import ensureAuthenticated from '@modules/users/http/middlewares/ensureAuthenticated';
 import CategoriesController from '../controllers/CategoriesController';
 // import UserAvatarController from '../controllers/UserAvatarController';
 
@@ -13,7 +13,7 @@ const categoriesController = new CategoriesController();
 // const userAvatarController = new UserAvatarController();
 // const upload = multer(uploadConfig);
 
-categoriesRouter.post('/', categoriesController.create);
+categoriesRouter.post('/', ensureAuthenticated, categoriesController.create);
 
 // usersRouter.patch(
 //   '/avatar',

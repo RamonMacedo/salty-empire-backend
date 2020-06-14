@@ -1,23 +1,19 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import CreateUserService from '@modules/users/services/CreateUserService';
+import CreateCategoryService from '@modules/categories/services/CreateCategoryService';
 
-export default class UsersController {
+export default class CategoriesController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { name, email, telephone, password } = request.body;
+    const { name, icon_svg } = request.body;
 
-    const createuser = container.resolve(CreateUserService);
+    const createCategory = container.resolve(CreateCategoryService);
 
-    const user = await createuser.execute({
+    const category = await createCategory.execute({
       name,
-      email,
-      telephone,
-      password,
+      icon_svg,
     });
 
-    delete user.password;
-
-    return response.json(user);
+    return response.json(category);
   }
 }
