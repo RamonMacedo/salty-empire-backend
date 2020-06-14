@@ -31,11 +31,8 @@ class Products {
   @Column()
   description: string;
 
-  @Column()
-  quantity: number;
-
-  @Column()
-  value: number;
+  @Column('decimal')
+  price: number;
 
   @Column()
   product_image: string;

@@ -9,8 +9,8 @@ import {
 
 import Products from '@modules/products/infra/typeorm/entities/Products';
 
-@Entity('users')
-class Users {
+@Entity('categories')
+class Categories {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -33,4 +33,4 @@ class Users {
   updated_at: Date;
 }
 
-export default Users;
+export default Categories;
